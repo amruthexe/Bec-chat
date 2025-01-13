@@ -1,5 +1,5 @@
 // array of funny loading messages
-export default [
+const funnyLoadingMessages = [
   'A long time ago in a server far, far away...',
   'Hacking the mainframe like a true Mr. Robot...',
   'Wubba lubba dub dub... Loading...',
@@ -31,3 +31,5 @@ export default [
   'Just keep loading, loading, loading...',
   'May the code be ever in your favor...',
 ];
+
+export default funnyLoadingMessages;

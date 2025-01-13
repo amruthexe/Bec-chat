@@ -5,7 +5,7 @@ import Input from '@/app/components/input/Input';
 import { useState, useCallback, useEffect } from 'react';
 import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
 import AuthSocialButton from './AuthSocialButton';
-import { BsGithub, BsGoogle, BsTwitter } from 'react-icons/bs';
+import { BsGoogle } from 'react-icons/bs';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { signIn, useSession } from 'next-auth/react';
@@ -27,7 +27,7 @@ const AuthForm = () => {
 
   const toggleVariant = useCallback(() => {
     setVariant((prev) => (prev === 'LOGIN' ? 'REGISTER' : 'LOGIN'));
-  }, [variant]);
+  }, []);
 
   const {
     register,
@@ -51,7 +51,7 @@ const AuthForm = () => {
           const errorCode = err.response.status;
 
           if (errorCode === 400) {
-            toast.error('Please enter your name, email and password!');
+            toast.error('Please enter your name, email, and password!');
           } else if (errorCode === 409) {
             toast.error('Email already exists!');
           } else {
@@ -70,7 +70,6 @@ const AuthForm = () => {
           if (res?.error) {
             toast.error(res.error);
           }
-
           if (res?.ok && !res?.error) {
             toast.success('Entering Bec Alumni Chat!');
             router.push('/users');
@@ -80,28 +79,28 @@ const AuthForm = () => {
     }
   };
 
-  const socialAction = (action: string) => {
-    setIsLoading(true);
+  const socialAction = useCallback(
+    (action: string) => {
+      setIsLoading(true);
 
-    signIn(action, {
-      redirect: false,
-    })
-      .then((res) => {
-        if (res?.error) {
-          toast.error(res.error);
-        }
-
-        if (res?.ok && !res?.error) {
-          toast.success('Entering Bec Alumni Chat! ');
-        }
-      })
-      .finally(() => setIsLoading(false));
-  };
+      signIn(action, { redirect: false })
+        .then((res) => {
+          if (res?.error) {
+            toast.error(res.error);
+          }
+          if (res?.ok && !res?.error) {
+            toast.success('Entering Bec Alumni Chat!');
+            router.push('/users');
+          }
+        })
+        .finally(() => setIsLoading(false));
+    },
+    [router]
+  );
 
   return (
     <section className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
-        {/* Auth Form (Login/Register) */}
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {variant === 'REGISTER' && (
             <Input
@@ -136,31 +135,23 @@ const AuthForm = () => {
           </div>
         </form>
 
-        {/* Social Login Buttons */}
         <article className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300" />
             </div>
-
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-2 text-gray-500">
-                Or continue with
-              </span>
+              <span className="bg-white px-2 text-gray-500">Or continue with</span>
             </div>
           </div>
-
           <div className="mt-6 flex gap-2">
-          
             <AuthSocialButton
               icon={BsGoogle}
               onClick={() => socialAction('google')}
             />
-          
           </div>
         </article>
 
-        {/* Toggle Login/Register */}
         <div className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
           <span>
             {variant === 'REGISTER'
@@ -179,4 +170,5 @@ const AuthForm = () => {
     </section>
   );
 };
+
 export default AuthForm;
