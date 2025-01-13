@@ -11,11 +11,6 @@ export const metadata: Metadata = {
   title: 'Bec ALumni - Your Ultimate Chat Experience',
   description:
     'Bec is a revolutionary chat application that transcends traditional messaging. Immerse yourself in rich, dynamic conversations, collaborate effortlessly, and forge meaningful connections with friends and colleagues. Join Bec Alumni Chat!  today and experience a new era of communication.',
-  keywords: [],
-  twitter: {
-    card: 'summary_large_image',
-    creator: '@yodkwtf',
-  },
 };
 
 export default function RootLayout({

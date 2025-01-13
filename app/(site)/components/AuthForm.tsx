@@ -27,7 +27,7 @@ const AuthForm = () => {
 
   const toggleVariant = useCallback(() => {
     setVariant((prev) => (prev === 'LOGIN' ? 'REGISTER' : 'LOGIN'));
-  }, []);
+  }, []);  // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const {
     register,
@@ -95,7 +95,7 @@ const AuthForm = () => {
         })
         .finally(() => setIsLoading(false));
     },
-    [router]
+    [] // eslint-disable-next-line react-hooks/exhaustive-deps
   );
 
   return (
