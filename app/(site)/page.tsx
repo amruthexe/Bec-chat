@@ -39,11 +39,12 @@ export default function Home() {
           />
 
           <h2 className="mt-6 text-center text-2xl lg:text-3xl font-bold text-gray-900">
-            🚀 Join Bec Alumni Chat Today!
+            🚀 Join Bec Alumni Chat Today! 🎉
           </h2>
 
           {/* Auth Form */}
           <AuthForm />
+      
         </div>
       </div>
     </main>
